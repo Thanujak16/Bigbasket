@@ -2,7 +2,7 @@ name: Update Big Basket Sheet Daily
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # Runs at 6:00 AM IST (0:30 UTC)
+    - cron: "30 0 * * *"  # Runs at 9:00 PM IST (0:30 UTC)
   workflow_dispatch:
 
 jobs:
