@@ -17,9 +17,6 @@ url = "https://www.foodspark.io/api/big-basket/"
 response = requests.get(url)
 data = response.json()
 
-# Optional: Clear old data
-sheet.clear()
-
 # Header row
 headers = list(data[0].keys())
 sheet.append_row(headers)
