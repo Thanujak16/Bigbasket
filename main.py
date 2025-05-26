@@ -1,29 +1,29 @@
+import requests
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import requests
 
-# === CONFIG ===
-GOOGLE_SHEET_NAME = 'Big Basket Tracker'
-SHEET_TAB_NAME = 'Dump'
-JSON_URL = 'https://raw.githubusercontent.com/yourusername/bigbasket-data/main/bigbasket_stores.json'
+# Google Sheet setup
+SPREADSHEET_NAME = "Big Basket Tracker"
+SHEET_NAME = "Dump"
 
-# === AUTHENTICATION ===
+# Authenticate with Google
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
 client = gspread.authorize(creds)
+sheet = client.open(SPREADSHEET_NAME).worksheet(SHEET_NAME)
 
-# === LOAD SHEET ===
-sheet = client.open(Big Basket Tracker).worksheet(Dump)
-sheet.clear()
-
-# === FETCH JSON DATA FROM GITHUB ===
-response = requests.get(JSON_URL)
+# API call to foodspark
+url = "https://www.foodspark.io/api/big-basket/"
+response = requests.get(url)
 data = response.json()
 
-# === HEADER ROW ===
+# Optional: Clear old data
+sheet.clear()
+
+# Header row
 headers = list(data[0].keys())
 sheet.append_row(headers)
 
-# === DATA ROWS ===
-for row in data:
-    sheet.append_row([row.get(key, '') for key in headers])
+# Append each row
+for store in data:
+    sheet.append_row([store.get(key, "") for key in headers])
