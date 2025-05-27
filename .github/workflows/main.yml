@@ -26,8 +26,14 @@ jobs:
       - name: Set up Google credentials
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          GSHEET_SECRET: ${{ secrets.GSHEET_SECRET }}   # Add your new secret here
         run: |
           echo "$GOOGLE_CREDENTIALS" > credentials.json
+          # If you need to save GSHEET_SECRET to a file or export it:
+          # echo "$GSHEET_SECRET" > gsheet_secret.txt
+          # export GSHEET_SECRET="$GSHEET_SECRET"
 
       - name: Run BigBasket Script
+        env:
+          GSHEET_SECRET: ${{ secrets.GSHEET_SECRET }}   # Pass it to your script environment if needed
         run: python bigbasket.py
