@@ -29,5 +29,5 @@ jobs:
         run: |
           echo "$GOOGLE_CREDENTIALS" > credentials.json
 
-      - name: Run main.yml
-        run: python main.yml
+      - name: Run BigBasket Script
+        run: python bigbasket.py
